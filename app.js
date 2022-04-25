@@ -4,7 +4,7 @@ const layouts = require("express-ejs-layouts");
 const axios = require("axios")
 const debug = require("debug")("personalapp:server"); 
 // const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, './.env') });
+require('dotenv').config();
 
 // const options = {headers: {Accept: 'application/json', 'X-API-KEY': process.env.MORALIS_API_KEY}};
 if (process.env.NODE_ENV !== 'production') {
