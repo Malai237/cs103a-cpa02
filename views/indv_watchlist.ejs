@@ -1,0 +1,23 @@
+<h3 class="text-center"> <%=ownerName %> owns <%= nftsOwned.data.totalCount%> NFTs</h3>
+<!-- let nfts = <%=JSON.stringify(nftsOwned.data.ownedNfts,null,5)%> -->
+
+<div class="d-flex flex-wrap overflow-scroll m-3 p-3" >
+    <% for (nft of nftsOwned.data.ownedNfts) {%>
+        <div class="p-3 m-3 border border-primary bg-light"  >
+            <!-- <h6><%= nft.media[0].raw %></h6> -->
+            <center>
+                <img src="<%= nft.media[0].raw %>" width="500px" height="500px" class="p-3 m-3" alt="<% nft.description %>"><br>
+                <div class="text-wrap">
+
+                <%= nft.title %>
+                </div>
+            </center>
+
+        </div>
+    <% }%>
+</div>
+<!-- nfts -->
+<!-- 
+<pre>
+    <%= JSON.stringify(nftsOwned.data,null,5) %>
+</pre> -->

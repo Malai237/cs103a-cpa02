@@ -8,6 +8,7 @@ const debug = require("debug")("personalapp:server");
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
+const apiKey = process.env.alchemy_api;
 // *********************************************************** //
 //  Loading models
 // *********************************************************** //
@@ -66,14 +67,31 @@ app.get("/", (req, res, next) => {
 app.get('/watchlist',
   async (req,res,next) => {
     try{
+            //    console.log("YOOOO")
       let items = await WatchListItem.find({}); // lookup the user's todo items
       res.locals.items = items;  //make the items available in the view
+    //   let nftsOwned = await axios.get(`https://eth-mainnet.alchemyapi.io/v2/8pUWBJ-p9K9eAIjE1Wip4IIdIGrDE8iG/getNFTs/?owner=0xaa190e8a9b602552f215e2b9f7d30d5410ea1df3`)
+    //    console.log(nftsOwned);
       res.render("watchlist");  // render to the toDo page
     } catch (e){
       next(e);
     }
-  }
-  )
+})
+
+app.get('/watchlist/:ownerAdd/:owner',
+  async (req,res,next) => {
+    try{
+        const ownerName = req.params.owner;
+        const ownerAddr = req.params.ownerAdd;
+      //Do an axios call to the alchemy api and add the tokenaddress
+        let nftsOwned = await axios.get(`https://eth-mainnet.alchemyapi.io/v2/${apiKey}/getNFTs/?owner=${ownerAddr}`)
+        res.locals.ownerName = ownerName;
+        res.locals.nftsOwned = nftsOwned;
+        res.render("indv_watchlist");  // render to the toDo page
+    } catch (e){
+      next(e);
+    }
+})
 
 
 app.post('/watchlist/add',
@@ -92,6 +110,18 @@ try{
 }
 }
 )
+
+  app.get("/watchlist/delete/:itemId",
+    async (req,res,next) => {
+      try{
+        const itemId=req.params.itemId; // get the id of the item to delete
+        await WatchListItem.deleteOne({_id:itemId}) // remove that item from the database
+        res.redirect('/watchlist') // go back to the todo page
+      } catch (e){
+        next(e);
+      }
+    }
+  )
 
 
 // *********************************************************** //

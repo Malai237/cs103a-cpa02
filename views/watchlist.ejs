@@ -7,8 +7,36 @@
         <input type="submit" value="Save Item"><br>
     </form>
     </div>
+
+    <table class="table table-striped">
+        <thead class="text-center">
+            <tr>
+                <th>Token Address</th>
+                <th>Owner Name</th>
+                <th>Delete?</th>
+            </tr>
+        </thead>
+        <% for (item of items) {%>
+            <tbody class="text-center">
+                <td>
+                    <a href="/watchlist/<%=item.tokenAddress%>/<%=item.ownerName%>"><%= item.tokenAddress %></a>
+                </td>
+                <td>
+                    <%= item.ownerName %>
+                </td>
+
+                <td > 
+                    <center>
+                        <button class="btn-danger">
+                            <a href="/watchlist/delete/<%= item._id%>">Delete</a>
+                        </button>    
+                    </center>
+                </td>
+            </tbody>
+        <%}%>
+    </table>
     
-    <pre>
+    <!-- <pre>
         <%= JSON.stringify(items,null,5) %>
-    </pre>
+    </pre> -->
 
