@@ -6,10 +6,6 @@ const debug = require("debug")("personalapp:server");
 // const path = require('path');
 require('dotenv').config();
 
-// const options = {headers: {Accept: 'application/json', 'X-API-KEY': process.env.MORALIS_API_KEY}};
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
 const apiKey = process.env.alchemy_api;
 // *********************************************************** //
 //  Loading models
