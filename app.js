@@ -124,12 +124,12 @@ try{
   )
 
 
-// // *********************************************************** //
-// //  Starting up the server!
-// // *********************************************************** //
-// //Here we set the port to use between 1024 and 65535  (2^16-1)
-// const port = "5000";
-// app.set("port", port);
+// *********************************************************** //
+//  Starting up the server!
+// *********************************************************** //
+//Here we set the port to use between 1024 and 65535  (2^16-1)
+const port = "5000";
+app.set("port", port);
 
 // and now we startup the server listening on that port
 const http = require("http");
