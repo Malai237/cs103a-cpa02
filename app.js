@@ -19,8 +19,8 @@ const WatchListItem = require("./models/TokenAddress")
 // *********************************************************** //
 
 const mongoose = require( 'mongoose' );
-const mongodb_URI = process.env.mongo_db_uri
-// const mongodb_URI = "mongodb+srv://malai:QlxZZTwUBvxn5XqT@cluster0.z1uwk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+// const mongodb_URI = process.env.mongo_db_uri
+const mongodb_URI = "mongodb+srv://malai:QlxZZTwUBvxn5XqT@cluster0.z1uwk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 mongoose.connect( mongodb_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
 // // fix deprecation warnings
