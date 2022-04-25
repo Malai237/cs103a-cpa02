@@ -19,7 +19,8 @@ const WatchListItem = require("./models/TokenAddress")
 // *********************************************************** //
 
 const mongoose = require( 'mongoose' );
-const mongodb_URI = mongo_db_uri = "mongodb+srv://malai:QlxZZTwUBvxn5XqT@cluster0.z1uwk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const mongodb_URI = `${process.env.mongo_db_uri}`
+
 mongoose.connect( mongodb_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
 // // fix deprecation warnings
 // mongoose.set('useFindAndModify', false); 
@@ -70,9 +71,7 @@ app.get('/watchlist',
             //    console.log("YOOOO")
       let items = await WatchListItem.find({}); // lookup the user's todo items
       res.locals.items = items;  //make the items available in the view
-    //   let nftsOwned = await axios.get(`https://eth-mainnet.alchemyapi.io/v2/8pUWBJ-p9K9eAIjE1Wip4IIdIGrDE8iG/getNFTs/?owner=0xaa190e8a9b602552f215e2b9f7d30d5410ea1df3`)
-    //    console.log(nftsOwned);
-      res.render("watchlist");  // render to the toDo page
+      res.render("watchlist"); 
     } catch (e){
       next(e);
     }
@@ -84,7 +83,7 @@ app.get('/watchlist/:ownerAdd/:owner',
         const ownerName = req.params.owner;
         const ownerAddr = req.params.ownerAdd;
       //Do an axios call to the alchemy api and add the tokenaddress
-        let nftsOwned = await axios.get(`https://eth-mainnet.alchemyapi.io/v2/${apiKey}/getNFTs/?owner=${ownerAddr}`)
+        let nftsOwned = await axios.get(`https://eth-mainnet.alchemyapi.io/v2/${apiKey}/getNFTs/?owner=${ownerAddr}`);
         res.locals.ownerName = ownerName;
         res.locals.nftsOwned = nftsOwned;
         res.render("indv_watchlist");  // render to the toDo page
@@ -116,7 +115,7 @@ try{
       try{
         const itemId=req.params.itemId; // get the id of the item to delete
         await WatchListItem.deleteOne({_id:itemId}) // remove that item from the database
-        res.redirect('/watchlist') // go back to the todo page
+        res.redirect('/watchlist') // go back to the watchlist page
       } catch (e){
         next(e);
       }
