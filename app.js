@@ -8,7 +8,10 @@ const debug = require("debug")("personalapp:server");
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
-
+// *********************************************************** //
+//  Loading models
+// *********************************************************** //
+const WatchListItem = require("./models/TokenAddress")
 
 // *********************************************************** //
 //  Connecting to the database
@@ -60,7 +63,35 @@ app.get("/", (req, res, next) => {
   res.render("index");
 });
 
+app.get('/watchlist',
+  async (req,res,next) => {
+    try{
+      let items = await WatchListItem.find({}); // lookup the user's todo items
+      res.locals.items = items;  //make the items available in the view
+      res.render("watchlist");  // render to the toDo page
+    } catch (e){
+      next(e);
+    }
+  }
+  )
 
+
+app.post('/watchlist/add',
+
+async (req,res,next) => {
+try{
+    const {tokenAddress,ownerName} = req.body; // get tokenAddress and ownerName from the body
+    // const userId = res.locals.user._id; // get the user's id
+    const createdAt = new Date(); // get the current date/time
+    let data = {tokenAddress,ownerName, createdAt,} // create the data object
+    let item = new WatchListItem(data) // create the database object (and test the types are correct)
+    await item.save() // save the watchlist item in the database
+    res.redirect('/watchlist')  // go back to the watchlist
+} catch (e){
+    next(e);
+}
+}
+)
 
 
 // *********************************************************** //

@@ -1,0 +1,14 @@
+    <div class="bg-light border border-primary p-3 rounded m-3">
+        <h1 class="display-4 text-center">NFT Watchlist</h1>
+
+    <form method="post" action="/watchlist/add">
+        Token Address:<input type="text" name="tokenAddress"><br>
+        Name of Owner:<input type="text" name="ownerName"><br>
+        <input type="submit" value="Save Item"><br>
+    </form>
+    </div>
+    
+    <pre>
+        <%= JSON.stringify(items,null,5) %>
+    </pre>
+
