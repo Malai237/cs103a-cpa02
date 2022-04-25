@@ -20,9 +20,6 @@ const mongoose = require( 'mongoose' );
 const mongodb_URI = process.env.mongo_db_uri;
 
 mongoose.connect( mongodb_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
-// // fix deprecation warnings
-// mongoose.set('useFindAndModify', false); 
-// mongoose.set('useCreateIndex', true);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
