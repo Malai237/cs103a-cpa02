@@ -3,6 +3,8 @@ const path = require("path");  // to refer to local paths
 const layouts = require("express-ejs-layouts");
 const axios = require("axios")
 const debug = require("debug")("personalapp:server"); 
+// const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
 // const options = {headers: {Accept: 'application/json', 'X-API-KEY': process.env.MORALIS_API_KEY}};
 if (process.env.NODE_ENV !== 'production') {
