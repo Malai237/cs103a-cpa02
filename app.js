@@ -105,7 +105,17 @@ try{
 }
 )
 
-
+  app.get("/watchlist/delete/:itemId",
+    async (req,res,next) => {
+      try{
+        const itemId=req.params.itemId; // get the id of the item to delete
+        await WatchListItem.deleteOne({_id:itemId}) // remove that item from the database
+        res.redirect('/watchlist') // go back to the todo page
+      } catch (e){
+        next(e);
+      }
+    }
+  )
 
 
 // *********************************************************** //
