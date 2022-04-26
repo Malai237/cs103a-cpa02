@@ -72,21 +72,6 @@ app.get('/watchlist',
     }
 })
 
-app.get('/watchlist/:ownerAdd/:owner',
-  async (req,res,next) => {
-    try{
-        const ownerName = req.params.owner;
-        const ownerAddr = req.params.ownerAdd;
-      //Do an axios call to the alchemy api and add the tokenaddress
-        let nftsOwned = await axios.get(`https://eth-mainnet.alchemyapi.io/v2/${apiKey}/getNFTs/?owner=${ownerAddr}`);
-        res.locals.ownerName = ownerName;
-        res.locals.nftsOwned = nftsOwned;
-        res.render("indv_watchlist");  // render to the toDo page
-    } catch (e){
-      next(e);
-    }
-})
-
 
 app.post('/watchlist/add',
 
@@ -116,6 +101,22 @@ try{
       }
     }
   )
+  
+app.get('/watchlist/:ownerAdd/:owner',
+  async (req,res,next) => {
+    try{
+        const ownerName = req.params.owner;
+        const ownerAddr = req.params.ownerAdd;
+      //Do an axios call to the alchemy api and add the tokenaddress
+        let nftsOwned = await axios.get(`https://eth-mainnet.alchemyapi.io/v2/${apiKey}/getNFTs/?owner=${ownerAddr}`);
+        res.locals.ownerName = ownerName;
+        res.locals.nftsOwned = nftsOwned;
+        res.render("indv_watchlist");  // render to the toDo page
+    } catch (e){
+      next(e);
+    }
+})
+  
 
 
 // *********************************************************** //
